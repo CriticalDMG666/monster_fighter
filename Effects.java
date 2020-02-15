@@ -8,8 +8,7 @@ public class Effects {
 
     public static synchronized void play_sound(final String url) {//this plays sound when you call it and write the address
         new Thread(new Runnable() {
-            // The wrapper thread is unnecessary, unless it blocks on the
-            // Clip finishing; see comments.
+          
             public void run() {
                 try {
                     Clip clip = AudioSystem.getClip();
