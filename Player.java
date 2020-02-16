@@ -18,9 +18,10 @@ public class Player {
     public boolean choice_escape;
     //End of player stats.
 
-    public static void turn(Player player, Monster monster) throws InterruptedException{
-        Scanner sc = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
+    private static Random rng = new Random();
 
+    public static void turn(Player player, Monster monster) throws InterruptedException {
         do {
             Effects.print("It's your turn. What will you do? Pick a number from below." +
                     "\t\t\t\tYour HP:" + player.current_hp + "/" + player.max_hp +
@@ -45,7 +46,6 @@ public class Player {
     }
 
     public static void attack(Player player, Monster monster) throws InterruptedException{
-        Random rng = new Random();
         Effects.print("POW!");
         Thread.sleep(1000);
         player.final_dmg = player.base_dmg+ rng.nextInt(player.base_dmg);
@@ -64,7 +64,6 @@ public class Player {
     }
 
     public static void run(Player player, Monster monster) throws InterruptedException{
-        Random rng = new Random();
         int escape_chance = rng.nextInt(2);
         if (escape_chance == 0) {
             Effects.print(">You successfully escape " + monster.name + ".");
@@ -88,6 +87,4 @@ public class Player {
                 "\n-Every 5 battles, you will be able to empower yourself in the healing fountain." +
                 "\n-Don't be afraid to run away from the monster. The next one won't be more powerful and you'll reach the healing fountain more easily.");
     }
-
-
 }

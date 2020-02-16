@@ -6,14 +6,13 @@ import javax.sound.sampled.Clip;
 
 public class Effects {
 
-    public static synchronized void play_sound(final String url) {//this plays sound when you call it and write the address
-        new Thread(new Runnable() {
-          
+    public static synchronized void play_sound(final String path) {//this plays sound when you call it and write the address
+        new Thread(new Runnable() {          
             public void run() {
                 try {
                     Clip clip = AudioSystem.getClip();
                     AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                            Main.class.getResourceAsStream("/path/to/sounds/" + url));
+                            Main.class.getResourceAsStream(path));
                     clip.open(inputStream);
                     clip.start();
                 } catch (Exception e) {

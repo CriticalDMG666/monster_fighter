@@ -3,8 +3,9 @@ package monsterfighter;
 import java.util.Scanner;
 
 public class Events {
+    private static Scanner sc = new Scanner(System.in);
+
     public static void battle_end(Player player) throws InterruptedException {
-        Scanner sc = new Scanner(System.in);
         Effects.print("--------------------------------------------");
         do {
             Effects.print("\nThe battle is over, " + player.name + ". Do you wish to exit the dungeon and return to town?" +
@@ -69,7 +70,6 @@ public class Events {
     }
 
     public static void healing_fountain_empower(Player player) throws InterruptedException {
-        Scanner sc = new Scanner(System.in);
         for (int i = 0; i < player.battle_points; i++) {
             do {
                 Effects.print("1.Amplify Attack (+30% base damage, a bonus of " + (player.base_dmg * 0.3) + " base damage)" +
@@ -105,7 +105,4 @@ public class Events {
         healing_fountain_opening(player);
         healing_fountain_empower(player);
     }
-
-
-
 }
