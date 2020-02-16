@@ -1,14 +1,8 @@
 package monsterfighter;
-import java.util.Random;
-import java.util.Scanner;
-import monsterfighter.Player;
 
-
-
-
+import java.util.*;
 
 public class Main {
-
     public static void main(String[] args)throws InterruptedException { //This is the game.
         Scanner sc = new Scanner(System.in);
         Player player = new Player();
@@ -22,13 +16,10 @@ public class Main {
         while(true) {
             for (int i = 0; i < 5; i++) {
                 Events.battle(player, monster);
-                if(player.choice_town)
-                    return;
+                if(player.choice_town) return;
             }
             player.battles_finished = 0;
-
-        Events.healing_fountain(player);
-
+            Events.healing_fountain(player);
         }
     }
 }
