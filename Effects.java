@@ -5,6 +5,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class Effects {
+    protected static int cc = 0;
 
     public static synchronized void play_sound(final String path) {//this plays sound when you call it and write the address
         new Thread(new Runnable() {          
@@ -37,5 +38,6 @@ public class Effects {
         }
         System.out.println();
     }
+
 
 }

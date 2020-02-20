@@ -9,4 +9,8 @@ public class Utils {
         }
         return true; /* if the function hasn't terminated return true */
     }
+
+    public static void clear(int count) {
+        for (int i = 0; i < count; i++) System.out.printf("\b");
+    }
 }
