@@ -5,16 +5,15 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class Effects {
+    protected static int cc = 0;
 
-    public static synchronized void play_sound(final String url) {//this plays sound when you call it and write the address
-        new Thread(new Runnable() {
-            // The wrapper thread is unnecessary, unless it blocks on the
-            // Clip finishing; see comments.
+    public static synchronized void play_sound(final String path) {//this plays sound when you call it and write the address
+        new Thread(new Runnable() {          
             public void run() {
                 try {
                     Clip clip = AudioSystem.getClip();
                     AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                            Main.class.getResourceAsStream("/path/to/sounds/" + url));
+                            Main.class.getResourceAsStream(path));
                     clip.open(inputStream);
                     clip.start();
                 } catch (Exception e) {
@@ -39,5 +38,6 @@ public class Effects {
         }
         System.out.println();
     }
+
 
 }

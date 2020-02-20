@@ -1,10 +1,14 @@
 package monsterfighter;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Events {
+    private static Random rng = new Random();
+    private static Scanner sc = new Scanner(System.in);
+    boolean fountain_tutorial = true;
+
     public static void battle_end(Player player) throws InterruptedException {
-        Scanner sc = new Scanner(System.in);
         Effects.print("--------------------------------------------");
         do {
             Effects.print("\nThe battle is over, " + player.name + ". Do you wish to exit the dungeon and return to town?" +
@@ -39,37 +43,19 @@ public class Events {
 
     public static void battle(Player player, Monster monster) throws InterruptedException {
         monster.name = Monster.pick_name();
+        int first_turn = rng.nextInt(2);
 
-        Effects.print(player.name + ", " + monster.name + " is in your way!");
-        while (true) {
-            Player.turn(player, monster);
-            if (monster.current_hp <= 0) {
-                Player.win(player, monster);
-                break;
-            }
-            else if (player.escape_death) {
-                Player.lose(player, monster);
-                break;
-            }
-            else if (player.choice_escape) {
-                monster.current_hp = monster.max_hp;
-                break;
-            }
-
-
-            Monster.attack(player, monster);
-            if (player.current_hp <= 0) {
-                Player.lose(player, monster);
-                break;
-            }
-        }
+        Effects.print(player.name + ", " + monster.name + " is in your way!\n");
+        if(first_turn == 1)
+            Events.battle_player_first(player, monster);
+        else
+            Events.battle_monster_first(player, monster);
 
         player.choice_escape = false;
         battle_end(player);
     }
 
     public static void healing_fountain_empower(Player player) throws InterruptedException {
-        Scanner sc = new Scanner(System.in);
         for (int i = 0; i < player.battle_points; i++) {
             do {
                 Effects.print("1.Amplify Attack (+30% base damage, a bonus of " + (player.base_dmg * 0.3) + " base damage)" +
@@ -92,20 +78,74 @@ public class Events {
         }
     }
 
-    public static void healing_fountain_opening(Player player) throws InterruptedException {
-        Effects.print("# " + player.name + ", good job! You have reached a healing fountain! Here you will be able to take a rest and invest your hard-earned Battle Points to amplify your stats. #");
+    public static void healing_fountain_opening(Player player, Events events) throws InterruptedException {
+        Effects.print("# " + player.name + ", good job! You have reached a healing fountain! #\n");
         Thread.sleep(1000);
+        if(events.fountain_tutorial) {
+            Effects.print("-------------------------------------------------------------------" +
+                    "\n\t\t\t Tutorial:" +
+                    "\nYou may have noticed that when you beat a monster you obtain a 'Battle Point'." +
+                    "\n These battle points serve as chances to improve your attack or your health pool." +
+                    "\n-------------------------------------------------------------------");
+            events.fountain_tutorial = false;
+        }
         player.current_hp = player.max_hp;
         Effects.print("# You have been healed to maximum HP. You are at " + player.max_hp + "HP now. #");
         Effects.print("# In the last 5 battles, you have gathered " + player.battle_points + "/5 battle points. #" +
                 "\nYou can now spend them to amplify your HP or attack. Choose wisely:");
     }
 
-    public static void healing_fountain(Player player) throws InterruptedException {
-        healing_fountain_opening(player);
+    public static void healing_fountain(Player player, Events events) throws InterruptedException {
+        healing_fountain_opening(player, events);
         healing_fountain_empower(player);
     }
 
+    public static void battle_player_first(Player player, Monster monster) throws InterruptedException{
+        while (true) {
+            Player.turn(player, monster);
+            if (monster.current_hp <= 0) {
+                Player.win(player, monster);
+                break;
+            }
+            else if (player.escape_death) {
+                Player.lose(player, monster);
+                break;
+            }
+            else if (player.choice_escape) {
+                monster.current_hp = monster.max_hp;
+                break;
+            }
 
+            Monster.attack(player, monster);
+            if (player.current_hp <= 0) {
+                Player.lose(player, monster);
+                break;
+            }
+        }
+    }
 
+    public static void battle_monster_first(Player player, Monster monster) throws InterruptedException{
+       while(true){
+           Monster.attack(player, monster);
+           if (player.current_hp <= 0) {
+               Player.lose(player, monster);
+               break;
+           }
+
+           Player.turn(player, monster);
+
+           if (monster.current_hp <= 0) {
+               Player.win(player, monster);
+               break;
+           }
+           else if (player.escape_death) {
+               Player.lose(player, monster);
+               break;
+           }
+               else if (player.choice_escape) {
+               monster.current_hp = monster.max_hp;
+               break;
+           }
+       }
+    }
 }

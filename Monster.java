@@ -11,8 +11,9 @@ public class Monster {
     public String name;
     //End of monster stats.
 
+    private static Random rng = new Random();
+
     public static String pick_name(){ //This picks the name of the monster
-        Random rng = new Random();
         String[] monster_names = {"Rabidt", "Crabbington", "Zombie", "Slime", "Jew", "Skeleton", "String placeholder_monster_name", "Lil' Wolf"};
         int monster_name_index = rng.nextInt(monster_names.length);
         return monster_names[monster_name_index];
@@ -50,7 +51,6 @@ public class Monster {
     }
 
     public static void attack(Player player, Monster monster) throws InterruptedException{
-        Random rng = new Random();
         monster.final_damage = monster.base_damage + rng.nextInt(monster.base_damage);
         player.current_hp -= monster.final_damage;
 

@@ -2,13 +2,15 @@ package monsterfighter;
 
 public class Utils {
     public static boolean choice_valid(String choice){
-        boolean is_num = true;
         for (int i = 0; i < choice.length(); i++) {
-            if(!(choice.charAt(i) <= '9' && choice.charAt(i) >= '0')){
-                is_num = false;
-                break;
+            if(!(choice.charAt(i) <= '9' && choice.charAt(i) >= '0')) {
+                return false; /* even if one isn't a number that terminates the whole check and returns false */
             }
         }
-        return is_num;
+        return true; /* if the function hasn't terminated return true */
+    }
+
+    public static void clear(int count) {
+        for (int i = 0; i < count; i++) System.out.printf("\b");
     }
 }
