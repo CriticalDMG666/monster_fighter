@@ -9,6 +9,7 @@ public class Monster {
     public int base_damage = 10;
     public int final_damage;
     public String name;
+    public int level = 1;
     //End of monster stats.
 
     private static Random rng = new Random();
@@ -59,11 +60,20 @@ public class Monster {
     }
 
     public static void print_info(Player player, Monster monster) throws InterruptedException{
-        Effects.print(monster.name + ":" +
+        Effects.print(monster.name + " LV " + monster.level + ":" +
                 "\nHP:" + monster.current_hp + "/" + monster.max_hp +
                 "\nAttack:" + monster.base_damage + " to " + monster.base_damage * 2 +
                 "\n" + Monster.description(monster.name) + "\n\n");
         player.choice = "99";
+    }
+
+    public static void drop_food(Player player, Monster monster, ) throws InterruptedException{
+        int which_drop = rng.nextInt(2);
+
+        if(monster.level <= 5){
+        }
+
+        Effects.print(monster.name + "Has dropped a(n) ");
     }
 
 }

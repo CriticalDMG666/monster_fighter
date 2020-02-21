@@ -20,6 +20,7 @@ public class Player {
 
     private static Scanner sc = new Scanner(System.in);
     private static Random rng = new Random();
+    public static Items inv = new Items();
 
     public static void turn(Player player, Monster monster) throws InterruptedException {
         do {
@@ -54,12 +55,13 @@ public class Player {
     }
 
     public static void win(Player player, Monster monster) throws InterruptedException{
-        Effects.print("# " + player.name + ", you have bested " + monster.name + "! The upcoming monsters will be 16% tougher, and you have gained a Battle Point  #");
+        Effects.print("# " + player.name + ", you have bested " + monster.name + "! The upcoming monsters will be 16% tougher, and you have gained a Battle Point #");
         player.battle_points++;
         // this is where the monsters' level will increase:
         monster.max_hp *= 1.16;
         monster.base_damage *= 1.16;
         monster.current_hp = monster.max_hp;
+        monster.level++;
         Thread.sleep(500);
     }
 
