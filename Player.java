@@ -18,9 +18,22 @@ public class Player {
     public boolean choice_escape;
     //End of player stats.
 
+    //Equipped statuses:
+    public boolean equipped_weapon = false;
+    public String weapon_name = "empty";
+    public boolean equipped_helm = false;
+    public String helm_name = "empty";
+    public static boolean equipped_chestplate = false;
+    public String chestplate_name = "empty";
+    public static boolean equipped_leggings = false;
+    public String leggings_name = "empty";
+    public static boolean equipped_boots = false;
+    public String boots_name = "empty";
+    //End of equipped statuses
+
     private static Scanner sc = new Scanner(System.in);
     private static Random rng = new Random();
-    public static Items inv = new Items();
+    public static Inventory inv = new Inventory();
 
     public static void turn(Player player, Monster monster) throws InterruptedException {
         do {
@@ -55,13 +68,13 @@ public class Player {
     }
 
     public static void win(Player player, Monster monster) throws InterruptedException{
-        Effects.print("# " + player.name + ", you have bested " + monster.name + "! The upcoming monsters will be 16% tougher, and you have gained a Battle Point #");
+        Effects.print("# " + player.name + ", you have bested " + monster.name + "! The upcoming monsters will be 5% tougher, and you have gained a Battle Point  #");
         player.battle_points++;
         // this is where the monsters' level will increase:
-        monster.max_hp *= 1.16;
-        monster.base_damage *= 1.16;
-        monster.current_hp = monster.max_hp;
         monster.level++;
+        monster.max_hp *= 1.05;
+        monster.base_damage *= 1.05;
+        monster.current_hp = monster.max_hp;
         Thread.sleep(500);
     }
 

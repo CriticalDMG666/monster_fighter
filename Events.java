@@ -58,19 +58,19 @@ public class Events {
     public static void healing_fountain_empower(Player player) throws InterruptedException {
         for (int i = 0; i < player.battle_points; i++) {
             do {
-                Effects.print("1.Amplify Attack (+30% base damage, a bonus of " + (player.base_dmg * 0.3) + " base damage)" +
-                        "\n2. Amplify Health (+30% HP, a bonus of " + (player.max_hp * 0.3) + " HP)\n");
+                Effects.print("1.Amplify Attack (+10% base damage, a bonus of " + (player.base_dmg * 0.1) + " base damage)" +
+                        "\n2. Amplify Health (+10% HP, a bonus of " + (player.max_hp * 0.1) + " HP)\n");
                 player.choice = sc.nextLine();
             } while (!(player.choice.equals("1") || player.choice.equals("2")));
 
             switch (player.choice) {
                 case "1":
-                    player.base_dmg *= 1.3;
+                    player.base_dmg *= 1.1;
                     Effects.print("# Congratulations, " + player.name + "! Your base damage is now " + player.base_dmg + ". You will now slay enemies faster! #\n");
                     break;
 
                 case "2":
-                    player.max_hp *= 1.3;
+                    player.max_hp *= 1.1;
                     player.current_hp = player.max_hp;
                     Effects.print("# Congratulations, " + player.name + "! Your HP is now " + player.max_hp + ". You will now endure more attacks from enemies!\n");
                     break;

@@ -22,7 +22,6 @@ public class Main {
             player.battles_finished = 0;
             Events.healing_fountain(player, events);
             player.battle_points = 0;
-
         }
     }
 }
